@@ -8,7 +8,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-- Index: 'products'
+- Index: 'products' [GET]
 - Show: 'products/:id' [GET]
 - Create [token required]: 'products' [POST]
 - [OPTIONAL] Top 5 most popular products: 'five-most-expensive-products' [GET]
@@ -19,11 +19,17 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index [token required]: 'users' [GET]
 - Show [token required]: 'users/:id' [GET]
 - Create N[token required]: 'users' [POST]
+- Authenticate: 'users/authenticate' [POST]
 
 #### Orders
 
-- Current Order by user (args: user id)[token required]: 'users/:id/order' [GET]
+- Index [token required]: 'orders' [GET]
+- Current Order by user (args: user id)[token required]: 'orders/:user_id' [GET]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
+
+#### Order_Products
+
+- Add Product to order [token required]: 'order/:id/product/:id' [POST] ?
 
 ## Data Shapes
 
@@ -45,7 +51,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - id
 - id of each product in the order
-- quantity of each product in the order ???? In DB schreiben?
+- quantity of each product in the order
 - user_id
 - status of order (active or complete)
 
@@ -54,4 +60,4 @@ These are the notes from a meeting with the frontend developer that describe wha
 Table products(id: integer, name: varchar, price: integer)
 Table users(id: integer, fristName: varchar, lastName: varchar, password: string (hashed))
 Table orders(id: integer, user_id: integer [foreign key to users table], status: string)
-Table order_products(id:integer [primary key], quantity: integer, order_id: integer [foreign key to orders table], product_id: integer [foreign key to products table])
+Table order_products(id: integer [primary key], quantity: integer, order_id: integer [foreign key to orders table], product_id: integer [foreign key to products table])
