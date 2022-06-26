@@ -1,24 +1,40 @@
 import Client from '../database';
 
-export type Order_Products = {
+export type OrderProducts = {
   id?: number;
-  quantity: number;
   order_id: number;
   product_id: number;
 };
 
-export class OrderStore {
-  async getCurrentOrderByUserId(userId: string): Promise<Order_Products> {
+export class OrderProductStore {
+  async orderProductIndex(): Promise<OrderProducts[]> {
     try {
-      // @ts-ignore
       const conn = await Client.connect();
-      const sql = `SELECT * FROM orders WHERE user_id = ($1);`;
+      const sql = `SELECT * FROM order_products;`;
 
-      const result = await conn.query(sql, [userId]);
+      const result = await conn.query(sql);
 
       conn.release();
 
-      return result.rows as unknown as Order_Products;
+      return result.rows as unknown as OrderProducts[];
+    } catch (err) {
+      throw new Error(`Could not get books. Error: ${err}`);
+    }
+  }
+
+  async addProductToOrder(
+    orderId: number,
+    productId: number
+  ): Promise<OrderProducts> {
+    try {
+      const conn = await Client.connect();
+      const sql = `INSERT INTO order_products(order_id, product_id) VALUES(($1), ($2)) RETURNING *;`;
+
+      const result = await conn.query(sql, [orderId, productId]);
+      console.log(`result ${result}`);
+      conn.release();
+
+      return result.rows[0] as unknown as OrderProducts;
     } catch (err) {
       throw new Error(`Could not get books. Error: ${err}`);
     }

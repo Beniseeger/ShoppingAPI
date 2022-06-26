@@ -5,9 +5,10 @@ import bodyParser from 'body-parser';
 import userHandler from './handlers/userHandler';
 import productsHandler from './handlers/productHandler';
 import orderHandler from './handlers/orderHandler';
+import orderProductHandler from './handlers/orderProductHandler';
 
 const app: express.Application = express();
-const address: string = '0.0.0.0:3000';
+const address = '0.0.0.0:3000';
 
 //Middleware used for all routes
 app.use(loggerMiddleware);
@@ -26,5 +27,6 @@ app.listen(3000, function () {
 app.use('/users', userHandler);
 app.use('/products', productsHandler);
 app.use('/orders', orderHandler);
+app.use('/orderproduct', orderProductHandler);
 
 export default app;

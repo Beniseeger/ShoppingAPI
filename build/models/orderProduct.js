@@ -39,70 +39,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var express_1 = __importDefault(require("express"));
-var order_1 = require("../models/order");
-var tokenCheckerMiddleware_1 = __importDefault(require("../middleware/tokenCheckerMiddleware"));
-var routes = express_1["default"].Router();
-var orderStore = new order_1.OrderStore();
-var getOrderFromUserId = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.getCurrentOrderByUserId(req.params.id)];
-            case 1:
-                result = _a.sent();
-                res.status(200).send(result);
-                return [3 /*break*/, 3];
-            case 2:
-                err_1 = _a.sent();
-                res.status(400).send(err_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var getAllOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.orderIndexRoute()];
-            case 1:
-                result = _a.sent();
-                res.status(200).send(result);
-                return [3 /*break*/, 3];
-            case 2:
-                err_2 = _a.sent();
-                res.status(400).send(err_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var addNewOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.createNewOrder(req.body.userId, req.body.status)];
-            case 1:
-                result = _a.sent();
-                res.status(200).send(result);
-                return [3 /*break*/, 3];
-            case 2:
-                err_3 = _a.sent();
-                console.log(err_3);
-                res.status(400).send(err_3);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-routes.get('/:id', getOrderFromUserId);
-routes.get('/', getAllOrders);
-routes.post('/create', tokenCheckerMiddleware_1["default"], addNewOrder);
-exports["default"] = routes;
+exports.OrderProductStore = void 0;
+var database_1 = __importDefault(require("../database"));
+var OrderProductStore = /** @class */ (function () {
+    function OrderProductStore() {
+    }
+    OrderProductStore.prototype.orderProductIndex = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = "SELECT * FROM order_products;";
+                        return [4 /*yield*/, conn.query(sql)];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows];
+                    case 3:
+                        err_1 = _a.sent();
+                        throw new Error("Could not get books. Error: ".concat(err_1));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderProductStore.prototype.addProductToOrder = function (orderId, productId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, err_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = "INSERT INTO order_products(order_id, product_id) VALUES(($1), ($2)) RETURNING *;";
+                        return [4 /*yield*/, conn.query(sql, [orderId, productId])];
+                    case 2:
+                        result = _a.sent();
+                        console.log("result ".concat(result));
+                        conn.release();
+                        return [2 /*return*/, result.rows[0]];
+                    case 3:
+                        err_2 = _a.sent();
+                        throw new Error("Could not get books. Error: ".concat(err_2));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return OrderProductStore;
+}());
+exports.OrderProductStore = OrderProductStore;

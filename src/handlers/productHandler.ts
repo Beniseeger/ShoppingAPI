@@ -47,6 +47,6 @@ const createProductRoute = async (
 
 routes.get('/', productIndexRoute);
 routes.get('/:id', showProductRoute);
-routes.post('/', tokenCheckerMiddleware, createProductRoute);
+routes.post('/create', tokenCheckerMiddleware, createProductRoute);
 
 export default routes;

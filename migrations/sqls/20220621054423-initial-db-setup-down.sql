@@ -1,5 +1,5 @@
 /* Replace with your SQL commands */
-DROP TABLE users;
-DROP TABLE products;
-DROP TABLE orders;
-DROP TABLE order_products;
+DROP TABLE if exists users cascade;;
+DROP TABLE if exists products cascade;;
+DROP TABLE if exists orders cascade;;
+DROP TABLE if exists order_products cascade;

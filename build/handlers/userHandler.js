@@ -55,12 +55,12 @@ var userIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, result];
             case 2:
                 err_1 = _a.sent();
                 res.status(400).send(err_1);
                 return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+            case 3: return [2 /*return*/, null];
         }
     });
 }); };
@@ -74,12 +74,12 @@ var showUser = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, result];
             case 2:
                 err_2 = _a.sent();
                 res.status(401).send(err_2);
                 return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+            case 3: return [2 /*return*/, null];
         }
     });
 }); };
@@ -92,18 +92,18 @@ var authenticateUser = function (req, res) { return __awaiter(void 0, void 0, vo
                 return [4 /*yield*/, userStore.authenticateUser(req.body.id, req.body.password)];
             case 1:
                 user = _a.sent();
-                if (typeof user === "string") {
+                if (typeof user === 'string') {
                     res.status(401).send(user);
                     return [2 /*return*/, null];
                 }
                 token = jsonwebtoken_1["default"].sign({ user: user }, process.env.TOKEN_SECRET);
                 res.status(200).send(token);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, token];
             case 2:
                 err_3 = _a.sent();
                 res.status(401).send(err_3);
                 return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+            case 3: return [2 /*return*/, null];
         }
     });
 }); };
@@ -114,25 +114,25 @@ var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, userStore.createUser({
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
+                        firstname: req.body.firstName,
+                        lastname: req.body.lastName,
                         password: req.body.password
                     })];
             case 1:
                 user = _a.sent();
                 token = jsonwebtoken_1["default"].sign({ user: user }, process.env.TOKEN_SECRET);
                 res.status(200).json(token);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, token];
             case 2:
                 err_4 = _a.sent();
                 res.status(400).json(err_4);
                 return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+            case 3: return [2 /*return*/, null];
         }
     });
 }); };
-routes.get("/", tokenCheckerMiddleware_1["default"], userIndexRoute);
-routes.get("/:id", tokenCheckerMiddleware_1["default"], showUser);
-routes.post("/authenticate", authenticateUser);
-routes.post("/create", tokenCheckerMiddleware_1["default"], createUser);
+routes.get('/', tokenCheckerMiddleware_1["default"], userIndexRoute);
+routes.get('/:id', tokenCheckerMiddleware_1["default"], showUser);
+routes.post('/authenticate', authenticateUser);
+routes.post('/create', tokenCheckerMiddleware_1["default"], createUser);
 exports["default"] = routes;

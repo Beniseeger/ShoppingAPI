@@ -10,7 +10,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Index: 'products' [GET]
 - Show: 'products/:id' [GET]
-- Create [token required]: 'products' [POST]
+- Create [token required]: 'products/create' [POST]
 - [OPTIONAL] Top 5 most popular products: 'five-most-expensive-products' [GET]
 - [OPTIONAL] Products by category (args: product category)
 
@@ -18,17 +18,19 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Index [token required]: 'users' [GET]
 - Show [token required]: 'users/:id' [GET]
-- Create N[token required]: 'users' [POST]
+- Create N[token required]: 'users/create' [POST]
 - Authenticate: 'users/authenticate' [POST]
 
 #### Orders
 
 - Index [token required]: 'orders' [GET]
 - Current Order by user (args: user id)[token required]: 'orders/:user_id' [GET]
+- Add new order [token required]: 'orders/create' [POST]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
 
 #### Order_Products
 
+- Index [token required] [GET]
 - Add Product to order [token required]: 'order/:id/product/:id' [POST] ?
 
 ## Data Shapes
@@ -59,5 +61,5 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 Table products(id: integer, name: varchar, price: integer)
 Table users(id: integer, fristName: varchar, lastName: varchar, password: string (hashed))
-Table orders(id: integer, user_id: integer [foreign key to users table], status: string)
-Table order_products(id: integer [primary key], quantity: integer, order_id: integer [foreign key to orders table], product_id: integer [foreign key to products table])
+Table orders(id: integer, user_id: integer [foreign key to users table], quantity: integer, status: string)
+Table order_products(id: integer [primary key], order_id: integer [foreign key to orders table], product_id: integer [foreign key to products table])

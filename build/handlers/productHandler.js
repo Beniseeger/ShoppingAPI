@@ -107,5 +107,5 @@ var createProductRoute = function (req, res) { return __awaiter(void 0, void 0, 
 }); };
 routes.get('/', productIndexRoute);
 routes.get('/:id', showProductRoute);
-routes.post('/', tokenCheckerMiddleware_1["default"], createProductRoute);
+routes.post('/create', tokenCheckerMiddleware_1["default"], createProductRoute);
 exports["default"] = routes;

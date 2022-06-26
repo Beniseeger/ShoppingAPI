@@ -11,8 +11,9 @@ var tokenHandler = function (_req, res, next) {
     }
     catch (err) {
         res.status(401).json("Invalid token ".concat(err));
-        return;
+        return false;
     }
     next();
+    return true;
 };
 exports["default"] = tokenHandler;

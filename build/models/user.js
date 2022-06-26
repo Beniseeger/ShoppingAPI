@@ -84,7 +84,7 @@ var UserStore = /** @class */ (function () {
                     case 2:
                         result = _a.sent();
                         conn.release();
-                        return [2 /*return*/, result.rows];
+                        return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_2 = _a.sent();
                         throw new Error("Could not get users. Error: ".concat(err_2));
@@ -107,19 +107,19 @@ var UserStore = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [enteredUserId])];
                     case 2:
                         dbUser = _a.sent();
+                        conn.release();
                         if (dbUser.rows.length) {
                             user = dbUser.rows[0];
                             if (bcrypt_1["default"].compareSync(enteredPassword + process.env.PEPPER_STRING, user.password)) {
                                 return [2 /*return*/, user];
                             }
                             else {
-                                return [2 /*return*/, "You have entered the wrong password, please enter the right password"];
+                                return [2 /*return*/, 'You have entered the wrong password, please enter the right password'];
                             }
                         }
                         else {
-                            return [2 /*return*/, "Unknown user name, please create the user first before authenticating."];
+                            return [2 /*return*/, 'Unknown user name, please create the user first before authenticating.'];
                         }
-                        conn.release();
                         return [3 /*break*/, 4];
                     case 3:
                         err_3 = _a.sent();
@@ -142,14 +142,14 @@ var UserStore = /** @class */ (function () {
                         sql = "INSERT INTO users(firstName, lastName, password) VALUES(($1),($2),($3)) RETURNING *;";
                         hashedPassword = bcrypt_1["default"].hashSync(user.password + process.env.PEPPER_STRING, parseInt(process.env.SALT_ROUNDS));
                         return [4 /*yield*/, conn.query(sql, [
-                                user.firstName,
-                                user.lastName,
+                                user.firstname,
+                                user.lastname,
                                 hashedPassword,
                             ])];
                     case 2:
                         result = _a.sent();
                         conn.release();
-                        return [2 /*return*/, result.rows];
+                        return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_4 = _a.sent();
                         throw new Error("Could not get users. Error: ".concat(err_4));

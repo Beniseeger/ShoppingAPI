@@ -40,17 +40,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
-var order_1 = require("../models/order");
+var orderProduct_1 = require("../models/orderProduct");
 var tokenCheckerMiddleware_1 = __importDefault(require("../middleware/tokenCheckerMiddleware"));
 var routes = express_1["default"].Router();
-var orderStore = new order_1.OrderStore();
-var getOrderFromUserId = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var orderStore = new orderProduct_1.OrderProductStore();
+var getOrderProductIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.getCurrentOrderByUserId(req.params.id)];
+                return [4 /*yield*/, orderStore.orderProductIndex()];
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
@@ -63,16 +63,16 @@ var getOrderFromUserId = function (req, res) { return __awaiter(void 0, void 0, 
         }
     });
 }); };
-var getAllOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var addProductToOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.orderIndexRoute()];
+                return [4 /*yield*/, orderStore.addProductToOrder(req.params.orderId, req.params.productId)];
             case 1:
                 result = _a.sent();
-                res.status(200).send(result);
+                res.status(200).json(result);
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
@@ -82,27 +82,6 @@ var getAllOrders = function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); };
-var addNewOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.createNewOrder(req.body.userId, req.body.status)];
-            case 1:
-                result = _a.sent();
-                res.status(200).send(result);
-                return [3 /*break*/, 3];
-            case 2:
-                err_3 = _a.sent();
-                console.log(err_3);
-                res.status(400).send(err_3);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-routes.get('/:id', getOrderFromUserId);
-routes.get('/', getAllOrders);
-routes.post('/create', tokenCheckerMiddleware_1["default"], addNewOrder);
+routes.get('/', getOrderProductIndexRoute);
+routes.post('/:orderId/products/:productId', tokenCheckerMiddleware_1["default"], addProductToOrder);
 exports["default"] = routes;

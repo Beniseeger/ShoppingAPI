@@ -10,6 +10,7 @@ var body_parser_1 = __importDefault(require("body-parser"));
 var userHandler_1 = __importDefault(require("./handlers/userHandler"));
 var productHandler_1 = __importDefault(require("./handlers/productHandler"));
 var orderHandler_1 = __importDefault(require("./handlers/orderHandler"));
+var orderProductHandler_1 = __importDefault(require("./handlers/orderProductHandler"));
 var app = (0, express_1["default"])();
 var address = '0.0.0.0:3000';
 //Middleware used for all routes
@@ -25,4 +26,5 @@ app.listen(3000, function () {
 app.use('/users', userHandler_1["default"]);
 app.use('/products', productHandler_1["default"]);
 app.use('/orders', orderHandler_1["default"]);
+app.use('/orderproduct', orderProductHandler_1["default"]);
 exports["default"] = app;

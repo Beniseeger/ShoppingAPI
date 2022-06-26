@@ -1,17 +1,16 @@
-import Client from "../database";
-import bcrypt from "bcrypt";
+import Client from '../database';
+import bcrypt from 'bcrypt';
 
 export type User = {
   id?: number;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   password: string;
 };
 
 export class UserStore {
-  async index(): Promise<User> {
+  async index(): Promise<User[]> {
     try {
-      // @ts-ignore
       const conn = await Client.connect();
       const sql = `SELECT * FROM users;`;
 
@@ -19,7 +18,7 @@ export class UserStore {
 
       conn.release();
 
-      return result.rows as unknown as User;
+      return result.rows as unknown as User[];
     } catch (err) {
       throw new Error(`Could not get users. Error: ${err}`);
     }
@@ -27,7 +26,6 @@ export class UserStore {
 
   async showUser(id: string): Promise<User> {
     try {
-      // @ts-ignore
       const conn = await Client.connect();
       const sql = `SELECT * FROM users WHERE id=($1);`;
 
@@ -35,7 +33,7 @@ export class UserStore {
 
       conn.release();
 
-      return result.rows as unknown as User;
+      return result.rows[0] as unknown as User;
     } catch (err) {
       throw new Error(`Could not get users. Error: ${err}`);
     }
@@ -51,6 +49,7 @@ export class UserStore {
 
       const dbUser = await conn.query(sql, [enteredUserId]);
 
+      conn.release();
       if (dbUser.rows.length) {
         const user = dbUser.rows[0] as User;
 
@@ -62,21 +61,18 @@ export class UserStore {
         ) {
           return user;
         } else {
-          return "You have entered the wrong password, please enter the right password";
+          return 'You have entered the wrong password, please enter the right password';
         }
       } else {
-        return "Unknown user name, please create the user first before authenticating.";
+        return 'Unknown user name, please create the user first before authenticating.';
       }
-
-      conn.release();
     } catch (err) {
       throw new Error(`Could not authenticate user. Error: ${err}`);
     }
   }
 
-  async createUser(user: User) {
+  async createUser(user: User): Promise<User> {
     try {
-      // @ts-ignore
       const conn = await Client.connect();
       const sql = `INSERT INTO users(firstName, lastName, password) VALUES(($1),($2),($3)) RETURNING *;`;
 
@@ -86,14 +82,14 @@ export class UserStore {
       );
 
       const result = await conn.query(sql, [
-        user.firstName,
-        user.lastName,
+        user.firstname,
+        user.lastname,
         hashedPassword,
       ]);
 
       conn.release();
 
-      return result.rows as unknown as User;
+      return result.rows[0] as unknown as User;
     } catch (err) {
       throw new Error(`Could not get users. Error: ${err}`);
     }

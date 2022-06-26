@@ -78,12 +78,12 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = "SELECT * from products WHERE id = ($1);";
+                        sql = 'SELECT * from products WHERE id = ($1);';
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         product = _a.sent();
                         conn.release();
-                        return [2 /*return*/, product.rows];
+                        return [2 /*return*/, product.rows[0]];
                     case 3:
                         err_2 = _a.sent();
                         throw new Error("Could not get product from id: ".concat(id, ". Error: ").concat(err_2));
@@ -102,12 +102,12 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = "INSERT INTO products(name, price) VALUES (($1), ($2)) RETURNING *;";
+                        sql = 'INSERT INTO products(name, price) VALUES (($1), ($2)) RETURNING *;';
                         return [4 /*yield*/, conn.query(sql, [product.name, product.price])];
                     case 2:
                         result = _a.sent();
                         conn.release();
-                        return [2 /*return*/, result.rows];
+                        return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_3 = _a.sent();
                         throw new Error("Could not create Product. Error: ".concat(err_3));
