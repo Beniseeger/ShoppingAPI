@@ -8,6 +8,11 @@ Before you can start the application you need to have yarn installed on your sys
 After cloning the project from github a `npm install` or `yarn` is necessary.
 Next Docker will be necessary to have a postgres DB (The setup steps will be described in DB startup).
 A .env file is needed with the varaibles specified in chapter DB startup and ENV File.
+Create a database.json file with the following details:
+
+`{ "dev": { "driver": "pg", "host": "127.0.0.1", "database": "dev_shopping_db", "user": "shopping_db_user", "password": "password123" }, "test": { "driver": "pg", "host": "127.0.0.1", "database": "test_shopping_db", "user": "shopping_db_user", "password": "password123" } }`
+
+This would have not been included in a real application cause the password could be seen from everyone. This only serves for the reviewer to test the application.
 
 ### DB
 
