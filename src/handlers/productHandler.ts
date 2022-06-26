@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Product, ProductStore } from '../models/product';
-import tokenCheckerMiddleware from '../middleware/tokenCheckerMiddleware';
+import tokenHandlerMiddleware from '../middleware/tokenHandlerMiddleware';
 
 const routes = express.Router();
 
@@ -11,7 +11,7 @@ const productIndexRoute = async (
   res: Response
 ): Promise<void> => {
   try {
-    const result = await productStore.index();
+    const result = await productStore.productIndexRoute();
     res.status(200).json(result);
   } catch (err) {
     res.status(400).send(err);
@@ -37,7 +37,7 @@ const createProductRoute = async (
       name: req.body.name as string,
       price: req.body.price as number,
     } as Product;
-    const result = await productStore.createNewProduct(newProduct);
+    const result = await productStore.createProduct(newProduct);
 
     res.status(200).json(result);
   } catch (err) {
@@ -47,6 +47,6 @@ const createProductRoute = async (
 
 routes.get('/', productIndexRoute);
 routes.get('/:id', showProductRoute);
-routes.post('/create', tokenCheckerMiddleware, createProductRoute);
+routes.post('/create', tokenHandlerMiddleware, createProductRoute);
 
 export default routes;

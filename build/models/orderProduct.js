@@ -82,7 +82,6 @@ var OrderProductStore = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [orderId, productId])];
                     case 2:
                         result = _a.sent();
-                        console.log("result ".concat(result));
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const request = supertest(app);
 
-describe('testing the order model', () => {
+describe('testing the order model', (): void => {
   const orderStore = new OrderStore();
 
   let token: string;
@@ -19,7 +19,7 @@ describe('testing the order model', () => {
       lastname: 'tester',
       token: token,
     };
-    const result = await request.post('/users/create').send(user);
+    await request.post('/users/create').send(user);
 
     await request
       .post('/orders/create')
@@ -29,13 +29,11 @@ describe('testing the order model', () => {
   it('should return the current order from user ID', async (): Promise<void> => {
     const result = await orderStore.getCurrentOrderByUserId('1');
 
-    //True, so no Error was thrown;
     expect(result.id).toBe(1);
   });
 
   it('should create a new order', async (): Promise<void> => {
-    const result = await orderStore.createNewOrder(1, 'active');
-    console.log(result);
+    const result = await orderStore.createOrder(1, 'active');
     expect(result.status).toEqual('active');
   });
 

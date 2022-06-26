@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { User, UserStore } from '../models/user';
-import tokenChecker from '../middleware/tokenCheckerMiddleware';
+import tokenChecker from '../middleware/tokenHandlerMiddleware';
 import jwt from 'jsonwebtoken';
 
 const routes = express.Router();
@@ -12,7 +12,7 @@ const userIndexRoute = async (
   res: Response
 ): Promise<User[] | null> => {
   try {
-    const result = await userStore.index();
+    const result = await userStore.userIndex();
     res.status(200).send(result);
     return result;
   } catch (err) {
@@ -22,9 +22,12 @@ const userIndexRoute = async (
   return null;
 };
 
-const showUser = async (req: Request, res: Response): Promise<User | null> => {
+const showUserRoute = async (
+  req: Request,
+  res: Response
+): Promise<User | null> => {
   try {
-    const result = await userStore.showUser(req.params.id);
+    const result = await userStore.getUserById(req.params.id);
 
     res.status(200).send(result);
     return result;
@@ -35,7 +38,7 @@ const showUser = async (req: Request, res: Response): Promise<User | null> => {
   return null;
 };
 
-const authenticateUser = async (
+const authenticateUserRoute = async (
   req: Request,
   res: Response
 ): Promise<string | null> => {
@@ -61,7 +64,7 @@ const authenticateUser = async (
   return null;
 };
 
-const createUser = async (
+const createUserRoute = async (
   req: Request,
   res: Response
 ): Promise<string | null> => {
@@ -84,8 +87,8 @@ const createUser = async (
 };
 
 routes.get('/', tokenChecker, userIndexRoute);
-routes.get('/:id', tokenChecker, showUser);
-routes.post('/authenticate', authenticateUser);
-routes.post('/create', tokenChecker, createUser);
+routes.get('/:id', tokenChecker, showUserRoute);
+routes.post('/authenticate', authenticateUserRoute);
+routes.post('/create', tokenChecker, createUserRoute);
 
 export default routes;

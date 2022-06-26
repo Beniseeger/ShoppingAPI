@@ -16,7 +16,7 @@ describe('testing order api endpoints', (): void => {
       lastname: 'tester',
       token: token,
     };
-    const result = await request.post('/users/create').send(user);
+    await request.post('/users/create').send(user);
 
     await request
       .post('/orders/create')

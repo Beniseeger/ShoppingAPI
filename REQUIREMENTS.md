@@ -11,8 +11,6 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index: 'products' [GET]
 - Show: 'products/:id' [GET]
 - Create [token required]: 'products/create' [POST]
-- [OPTIONAL] Top 5 most popular products: 'five-most-expensive-products' [GET]
-- [OPTIONAL] Products by category (args: product category)
 
 #### Users
 
@@ -26,12 +24,11 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index [token required]: 'orders' [GET]
 - Current Order by user (args: user id)[token required]: 'orders/:user_id' [GET]
 - Add new order [token required]: 'orders/create' [POST]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
 
 #### Order_Products
 
 - Index [token required] [GET]
-- Add Product to order [token required]: 'order/:id/product/:id' [POST] ?
+- Add Product to order [token required]: 'orderproduct/:id/product/:id' [POST]
 
 ## Data Shapes
 
@@ -40,7 +37,6 @@ These are the notes from a meeting with the frontend developer that describe wha
 - id
 - name
 - price
-- [OPTIONAL] category
 
 #### User
 
@@ -59,7 +55,18 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Database relations
 
+### Products
+
 Table products(id: integer, name: varchar, price: integer)
-Table users(id: integer, fristName: varchar, lastName: varchar, password: string (hashed))
+
+### Users
+
+Table users(id: integer, fristName: varchar, lastName: varchar, password: varchar (hashed))
+
+### Orders
+
 Table orders(id: integer, user_id: integer [foreign key to users table], quantity: integer, status: string)
+
+### Order_Products (Created due to the many to many relation)
+
 Table order_products(id: integer [primary key], order_id: integer [foreign key to orders table], product_id: integer [foreign key to products table])

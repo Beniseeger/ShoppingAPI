@@ -14,8 +14,6 @@ const {
   ENV,
 } = process.env;
 
-console.log(`ENV: ${ENV}`);
-
 if (ENV === 'DEV') {
   client = new Pool({
     host: POSTGRES_HOST,

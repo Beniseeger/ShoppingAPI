@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const request = supertest(app);
 
-describe('testing the user model', () => {
+describe('testing the user model', (): void => {
   const userStore = new UserStore();
 
   let token: string;
@@ -23,10 +23,8 @@ describe('testing the user model', () => {
   });
 
   it('should return the user from id', async (): Promise<void> => {
-    const result = await userStore.showUser('1');
+    const result = await userStore.getUserById('1');
 
-    console.log(result);
-    //True, so no Error was thrown;
     expect(result.id).toBe(1);
   });
 
@@ -38,12 +36,11 @@ describe('testing the user model', () => {
     };
 
     const result = await userStore.createUser(user as User);
-    console.log(result);
     expect(result.firstname).toEqual('Max');
   });
 
   it('should show all users', async (): Promise<void> => {
-    const result = await userStore.index();
+    const result = await userStore.userIndex();
 
     expect(result.length).toBeGreaterThanOrEqual(1);
   });

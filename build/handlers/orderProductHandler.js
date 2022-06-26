@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var orderProduct_1 = require("../models/orderProduct");
-var tokenCheckerMiddleware_1 = __importDefault(require("../middleware/tokenCheckerMiddleware"));
+var tokenHandlerMiddleware_1 = __importDefault(require("../middleware/tokenHandlerMiddleware"));
 var routes = express_1["default"].Router();
 var orderStore = new orderProduct_1.OrderProductStore();
 var getOrderProductIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -63,7 +63,7 @@ var getOrderProductIndexRoute = function (req, res) { return __awaiter(void 0, v
         }
     });
 }); };
-var addProductToOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var addProductToOrderRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -83,5 +83,5 @@ var addProductToOrder = function (req, res) { return __awaiter(void 0, void 0, v
     });
 }); };
 routes.get('/', getOrderProductIndexRoute);
-routes.post('/:orderId/products/:productId', tokenCheckerMiddleware_1["default"], addProductToOrder);
+routes.post('/:orderId/product/:productId', tokenHandlerMiddleware_1["default"], addProductToOrderRoute);
 exports["default"] = routes;

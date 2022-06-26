@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var user_1 = require("../models/user");
-var tokenCheckerMiddleware_1 = __importDefault(require("../middleware/tokenCheckerMiddleware"));
+var tokenHandlerMiddleware_1 = __importDefault(require("../middleware/tokenHandlerMiddleware"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var routes = express_1["default"].Router();
 var userStore = new user_1.UserStore();
@@ -51,7 +51,7 @@ var userIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, userStore.index()];
+                return [4 /*yield*/, userStore.userIndex()];
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
@@ -64,13 +64,13 @@ var userIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-var showUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var showUserRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, userStore.showUser(req.params.id)];
+                return [4 /*yield*/, userStore.getUserById(req.params.id)];
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
@@ -83,7 +83,7 @@ var showUser = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
         }
     });
 }); };
-var authenticateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var authenticateUserRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, token, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -107,7 +107,7 @@ var authenticateUser = function (req, res) { return __awaiter(void 0, void 0, vo
         }
     });
 }); };
-var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var createUserRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, token, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -131,8 +131,8 @@ var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-routes.get('/', tokenCheckerMiddleware_1["default"], userIndexRoute);
-routes.get('/:id', tokenCheckerMiddleware_1["default"], showUser);
-routes.post('/authenticate', authenticateUser);
-routes.post('/create', tokenCheckerMiddleware_1["default"], createUser);
+routes.get('/', tokenHandlerMiddleware_1["default"], userIndexRoute);
+routes.get('/:id', tokenHandlerMiddleware_1["default"], showUserRoute);
+routes.post('/authenticate', authenticateUserRoute);
+routes.post('/create', tokenHandlerMiddleware_1["default"], createUserRoute);
 exports["default"] = routes;

@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const request = supertest(app);
 
-describe('testing the order_product handler', () => {
+describe('testing the order_product handler', (): void => {
   let token: string;
 
   beforeAll(async (): Promise<void> => {
@@ -30,20 +30,18 @@ describe('testing the order_product handler', () => {
       .send({ name: 'test_product', price: 100, token: token });
 
     //create order product relation
-    await request.post('/orderproduct/1/product/1').send(user);
+    await request.post('/orderproduct/1/product/1').send({ token: token });
   });
 
   it('should return all products in orders', async (): Promise<void> => {
     const result = await request.get('/orderproduct');
-
-    console.log(result);
 
     expect(result.body.length).toBeGreaterThanOrEqual(1);
   });
 
   it('should add another product to the order with id 1', async (): Promise<void> => {
     const result = await request
-      .post('/orderproduct/1/products/1')
+      .post('/orderproduct/1/product/1')
       .send({ token: token });
 
     expect(result.status).toBe(200);

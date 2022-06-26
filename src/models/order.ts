@@ -38,7 +38,7 @@ export class OrderStore {
     }
   }
 
-  async createNewOrder(userId: number, status: string): Promise<Order> {
+  async createOrder(userId: number, status: string): Promise<Order> {
     try {
       const conn = await Client.connect();
       const sql = `INSERT INTO orders(userid, status) VALUES(($1), ($2)) RETURNING *;`;
@@ -46,7 +46,6 @@ export class OrderStore {
       const result = await conn.query(sql, [userId, status]);
 
       conn.release();
-      console.log(result);
 
       return result.rows[0] as unknown as Order;
     } catch (err) {

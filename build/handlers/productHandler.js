@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
 var product_1 = require("../models/product");
-var tokenCheckerMiddleware_1 = __importDefault(require("../middleware/tokenCheckerMiddleware"));
+var tokenHandlerMiddleware_1 = __importDefault(require("../middleware/tokenHandlerMiddleware"));
 var routes = express_1["default"].Router();
 var productStore = new product_1.ProductStore();
 var productIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -50,7 +50,7 @@ var productIndexRoute = function (req, res) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, productStore.index()];
+                return [4 /*yield*/, productStore.productIndexRoute()];
             case 1:
                 result = _a.sent();
                 res.status(200).json(result);
@@ -92,7 +92,7 @@ var createProductRoute = function (req, res) { return __awaiter(void 0, void 0, 
                     name: req.body.name,
                     price: req.body.price
                 };
-                return [4 /*yield*/, productStore.createNewProduct(newProduct)];
+                return [4 /*yield*/, productStore.createProduct(newProduct)];
             case 1:
                 result = _a.sent();
                 res.status(200).json(result);
@@ -107,5 +107,5 @@ var createProductRoute = function (req, res) { return __awaiter(void 0, void 0, 
 }); };
 routes.get('/', productIndexRoute);
 routes.get('/:id', showProductRoute);
-routes.post('/create', tokenCheckerMiddleware_1["default"], createProductRoute);
+routes.post('/create', tokenHandlerMiddleware_1["default"], createProductRoute);
 exports["default"] = routes;

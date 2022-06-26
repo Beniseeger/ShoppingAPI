@@ -1,20 +1,5 @@
 # Storefront Backend Project
 
-## Getting Started
-
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
-
-## Required Technologies
-
-Your application must make use of the following libraries:
-
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
-
 ## Setting up the application
 
 ### Prerequisites
@@ -40,12 +25,9 @@ To setup the db follow the follwing steps:
 
 1. Run `docker compose up` to setup the postgres db
 2. Connect to the db via `docker exec -it [name / id of above docker container] /bin/sh`
-3. Create user `CREATE USER shopping_db_user WITH PASSWORD 'password123';`
-4. Create the DB via: `CREATE TABLE dev_shopping_DB;` and `CREATE TABLE test_shopping_DB;`
-5. Connect to each db and run `GRANT ALL PRIVILEGES ON DATABASE dev/test_shopping_db TO shopping_db_user;`
-6. In a new terminal run the command `db-migrate up` to setup all relations
-
----
+3. switch to postgres user: `psql --username shopping_db_user`
+4. Connect to each db and run `GRANT ALL PRIVILEGES ON DATABASE dev/test_shopping_db TO shopping_db_user;`
+5. In a new terminal run the command `db-migrate up` to setup all relations
 
 #### DB schemas
 
@@ -74,8 +56,11 @@ For example the route 0.0.0.0:3000/users [GET] will return all users when the co
 ### Authentication
 
 For some routes (like /users [GET]) tokens need to be provided. These tokens need to be added in the request body as follows:
-`{ "id": 1, "password": password123 "token": token }`
+`{ "id": 1, "password": "password123" "token": "eyJdihwnudsa..." }`
 A user can get a token by either creating a new user or authenticating via the /users/authenticate [POST] route.
+
+To create an initial user in the db. A token is required. For test purposes the following token may be used. (This would not be included in a productive application and serves for test purposes):
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdG5hbWUiOiJ0ZXN0ZXIiLCJsYXN0bmFtZSI6ImpkaWphc2lvIiwicGFzc3dvcmQiOiIkMmIkMTAkbU5mY0Rublc4QTE0R29LMmxUVXlOLjVaWVpWaWFzNkNUWEVhWExPbFV5M01UNGhDY1MifSwiaWF0IjoxNjU1OTI3MzU0fQ.EWiPsmSiMj6YDl9Pbl9ZpYAKeJHr1quROfcvI4D5ym4
 
 ### ENV File
 

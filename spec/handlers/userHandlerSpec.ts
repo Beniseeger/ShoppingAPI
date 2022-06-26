@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 const request = supertest(app);
 
 describe('testing user api endpoints', (): void => {
-  var token: string;
+  let token: string;
 
   beforeAll(async () => {
     token = jwt.sign({ user: {} }, process.env.TOKEN_SECRET as string);

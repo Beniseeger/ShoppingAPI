@@ -45,7 +45,7 @@ var bcrypt_1 = __importDefault(require("bcrypt"));
 var UserStore = /** @class */ (function () {
     function UserStore() {
     }
-    UserStore.prototype.index = function () {
+    UserStore.prototype.userIndex = function () {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_1;
             return __generator(this, function (_a) {
@@ -69,7 +69,7 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
-    UserStore.prototype.showUser = function (id) {
+    UserStore.prototype.getUserById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_2;
             return __generator(this, function (_a) {

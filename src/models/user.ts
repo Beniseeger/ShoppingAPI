@@ -9,7 +9,7 @@ export type User = {
 };
 
 export class UserStore {
-  async index(): Promise<User[]> {
+  async userIndex(): Promise<User[]> {
     try {
       const conn = await Client.connect();
       const sql = `SELECT * FROM users;`;
@@ -24,7 +24,7 @@ export class UserStore {
     }
   }
 
-  async showUser(id: string): Promise<User> {
+  async getUserById(id: string): Promise<User> {
     try {
       const conn = await Client.connect();
       const sql = `SELECT * FROM users WHERE id=($1);`;

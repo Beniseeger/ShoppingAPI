@@ -31,7 +31,7 @@ export class OrderProductStore {
       const sql = `INSERT INTO order_products(order_id, product_id) VALUES(($1), ($2)) RETURNING *;`;
 
       const result = await conn.query(sql, [orderId, productId]);
-      console.log(`result ${result}`);
+
       conn.release();
 
       return result.rows[0] as unknown as OrderProducts;

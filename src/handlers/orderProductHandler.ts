@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { OrderProductStore } from '../models/orderProduct';
-import tokenChecker from '../middleware/tokenCheckerMiddleware';
+import tokenChecker from '../middleware/tokenHandlerMiddleware';
 
 const routes = express.Router();
 
@@ -18,7 +18,7 @@ const getOrderProductIndexRoute = async (
   }
 };
 
-const addProductToOrder = async (
+const addProductToOrderRoute = async (
   req: Request,
   res: Response
 ): Promise<void> => {
@@ -35,6 +35,10 @@ const addProductToOrder = async (
 };
 
 routes.get('/', getOrderProductIndexRoute);
-routes.post('/:orderId/products/:productId', tokenChecker, addProductToOrder);
+routes.post(
+  '/:orderId/product/:productId',
+  tokenChecker,
+  addProductToOrderRoute
+);
 
 export default routes;

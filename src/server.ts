@@ -16,11 +16,11 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.get('/', function (req: Request, res: Response) {
+app.get('/', (req: Request, res: Response): void => {
   res.send('Initial route!');
 });
 
-app.listen(3000, function () {
+app.listen(3000, (): void => {
   console.log(`starting app on: ${address}`);
 });
 

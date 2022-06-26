@@ -7,7 +7,7 @@ export type Product = {
 };
 
 export class ProductStore {
-  async index(): Promise<Product[]> {
+  async productIndexRoute(): Promise<Product[]> {
     try {
       const conn = await Client.connect();
       const sql = `SELECT * FROM products;`;
@@ -36,7 +36,7 @@ export class ProductStore {
     }
   }
 
-  async createNewProduct(product: Product): Promise<Product> {
+  async createProduct(product: Product): Promise<Product> {
     try {
       const conn = await Client.connect();
       const sql =

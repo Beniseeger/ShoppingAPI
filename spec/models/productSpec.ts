@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const request = supertest(app);
 
-describe('testing the product model', () => {
+describe('testing the product model', (): void => {
   const productStore = new ProductStore();
 
   let token: string;
@@ -26,7 +26,7 @@ describe('testing the product model', () => {
   });
 
   it('should create a new product', async (): Promise<void> => {
-    const result = await productStore.createNewProduct({
+    const result = await productStore.createProduct({
       name: 'tester',
       price: 100,
     });
@@ -35,7 +35,7 @@ describe('testing the product model', () => {
   });
 
   it('should show all products', async (): Promise<void> => {
-    const result = await productStore.index();
+    const result = await productStore.productIndexRoute();
 
     expect(result.length).toBeGreaterThanOrEqual(1);
   });

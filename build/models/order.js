@@ -92,7 +92,7 @@ var OrderStore = /** @class */ (function () {
             });
         });
     };
-    OrderStore.prototype.createNewOrder = function (userId, status) {
+    OrderStore.prototype.createOrder = function (userId, status) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_3;
             return __generator(this, function (_a) {
@@ -107,7 +107,6 @@ var OrderStore = /** @class */ (function () {
                     case 2:
                         result = _a.sent();
                         conn.release();
-                        console.log(result);
                         return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_3 = _a.sent();

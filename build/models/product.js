@@ -44,7 +44,7 @@ var database_1 = __importDefault(require("../database"));
 var ProductStore = /** @class */ (function () {
     function ProductStore() {
     }
-    ProductStore.prototype.index = function () {
+    ProductStore.prototype.productIndexRoute = function () {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_1;
             return __generator(this, function (_a) {
@@ -92,7 +92,7 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
-    ProductStore.prototype.createNewProduct = function (product) {
+    ProductStore.prototype.createProduct = function (product) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_3;
             return __generator(this, function (_a) {
