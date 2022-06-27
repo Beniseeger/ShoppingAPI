@@ -92,7 +92,7 @@ var OrderStore = /** @class */ (function () {
             });
         });
     };
-    OrderStore.prototype.createOrder = function (userId, status) {
+    OrderStore.prototype.createOrder = function (order) {
         return __awaiter(this, void 0, void 0, function () {
             var conn, sql, result, err_3;
             return __generator(this, function (_a) {
@@ -103,7 +103,7 @@ var OrderStore = /** @class */ (function () {
                     case 1:
                         conn = _a.sent();
                         sql = "INSERT INTO orders(userid, status) VALUES(($1), ($2)) RETURNING *;";
-                        return [4 /*yield*/, conn.query(sql, [userId, status])];
+                        return [4 /*yield*/, conn.query(sql, [order.userid, order.status])];
                     case 2:
                         result = _a.sent();
                         conn.release();
@@ -111,6 +111,54 @@ var OrderStore = /** @class */ (function () {
                     case 3:
                         err_3 = _a.sent();
                         throw new Error("Could not create new order. Error: ".concat(err_3));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderStore.prototype.deleteOrder = function (orderId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = "DELETE FROM orders WHERE id=($1) RETURNING *;";
+                        return [4 /*yield*/, conn.query(sql, [orderId])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows[0]];
+                    case 3:
+                        err_4 = _a.sent();
+                        throw new Error("Could not delete order. Error: ".concat(err_4));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderStore.prototype.updateOrder = function (orderId, status, quantity) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, err_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = "UPDATE orders SET status=($1), quantity=($3) WHERE id=($2) RETURNING *";
+                        return [4 /*yield*/, conn.query(sql, [status, orderId, quantity])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows[0]];
+                    case 3:
+                        err_5 = _a.sent();
+                        throw new Error("Could not update order. Error: ".concat(err_5));
                     case 4: return [2 /*return*/];
                 }
             });

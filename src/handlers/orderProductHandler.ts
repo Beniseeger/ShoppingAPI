@@ -40,8 +40,8 @@ const deleteOrderProductRoute = async (
 ): Promise<void> => {
   try {
     const user = await orderProductStore.deleteProductFromOrder(
-      req.params.orderid,
-      req.params.productid
+      req.params.orderid as unknown as number,
+      req.params.productid as unknown as number
     );
 
     res.status(200).json(user);

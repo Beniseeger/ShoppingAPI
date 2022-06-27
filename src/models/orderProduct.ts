@@ -33,21 +33,19 @@ export class OrderProductStore {
       const result = await conn.query(sql, [orderId, productId]);
 
       conn.release();
-      console.log(result);
       return result.rows[0] as unknown as OrderProduct;
     } catch (err) {
-      console.log(err);
       throw new Error(`Could not get OrderProductStore. Error: ${err}`);
     }
   }
 
   async deleteProductFromOrder(
-    orderId: string,
-    productId: string
+    orderId: number,
+    productId: number
   ): Promise<OrderProduct> {
     try {
       const conn = await Client.connect();
-      const sql = `DELETE FROM products WHERE order_id=($1) AND product_id=($2) RETURNING *;`;
+      const sql = `DELETE FROM order_products WHERE order_id=($1) AND product_id=($2) RETURNING *;`;
 
       const result = await conn.query(sql, [orderId, productId]);
 

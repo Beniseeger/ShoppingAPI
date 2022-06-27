@@ -1,4 +1,4 @@
-import { OrderStore } from '../../src/models/order';
+import { Order, OrderStore } from '../../src/models/order';
 import supertest from 'supertest';
 import app from '../../src/server';
 import jwt from 'jsonwebtoken';
@@ -33,7 +33,11 @@ describe('testing the order model', (): void => {
   });
 
   it('should create a new order', async (): Promise<void> => {
-    const result = await orderStore.createOrder(1, 'active');
+    const order = {
+      userid: 1,
+      status: 'active',
+    } as Order;
+    const result = await orderStore.createOrder(order);
     expect(result.status).toEqual('active');
   });
 

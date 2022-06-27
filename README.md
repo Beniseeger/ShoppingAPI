@@ -21,10 +21,10 @@ This would have not been included in a real application cause the password could
 The database used in this project runs on port 5432 and has the following details:
 
 - HOST=127.0.0.1
-- DB_DEV=dev_shopping_db
-- DB_TEST=test_shopping_db
+- DB_NAME_DEV=dev_shopping_db
+- DB_NAME_TEST=test_shopping_db
 - DB_USER=shopping_db_user
-- DB_User_PASSWORD=password123
+- DB_USER_PASSWORD=password123
 
 To setup the db follow the follwing steps:
 
@@ -63,6 +63,7 @@ For example the route 0.0.0.0:3000/users [GET] will return all users when the co
 For some routes (like /users [GET]) tokens need to be provided. These tokens need to be added in the request body as follows:
 `{ "id": 1, "password": "password123" "token": "eyJdihwnudsa..." }`
 A user can get a token by either creating a new user or authenticating via the /users/authenticate [POST] route.
+The tokens are checked via a middleware (tokenHandlerMiddleware)
 
 To create an initial user in the db. A token is required. For test purposes the following token may be used. (This would not be included in a productive application and serves for test purposes):
 token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdG5hbWUiOiJ0ZXN0ZXIiLCJsYXN0bmFtZSI6ImpkaWphc2lvIiwicGFzc3dvcmQiOiIkMmIkMTAkbU5mY0Rublc4QTE0R29LMmxUVXlOLjVaWVpWaWFzNkNUWEVhWExPbFV5M01UNGhDY1MifSwiaWF0IjoxNjU1OTI3MzU0fQ.EWiPsmSiMj6YDl9Pbl9ZpYAKeJHr1quROfcvI4D5ym4
@@ -70,6 +71,11 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdG5hbWU
 ### ENV File
 
 The env file was removed due to security reasons. But for the sake of completion, these where the values used for this project (This would not be included in a real project):
+HOST=127.0.0.1
+DB_NAME_DEV=dev_shopping_db
+DB_NAME_TEST=test_shopping_db
+DB_USER=shopping_db_user
+DB_USER_PASSWORD=password123
 SALT_ROUNDS=10
 PEPPER_STRING=thisismysecurepepperstring
 TOKEN_SECRET=Thisismytokensecret

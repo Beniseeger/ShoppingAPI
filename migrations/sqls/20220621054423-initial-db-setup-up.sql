@@ -16,11 +16,11 @@ CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     status VARCHAR(15),
     quantity integer DEFAULT 1,
-    userId bigint REFERENCES users(id)
+    userId bigint REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE order_products (
     id SERIAL PRIMARY KEY,
-    order_id bigint REFERENCES orders(id),
+    order_id bigint REFERENCES orders(id) ON DELETE CASCADE,
     product_id bigint REFERENCES products(id)
 );

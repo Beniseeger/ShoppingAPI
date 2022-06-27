@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { OrderStore } from '../models/order';
+import { Order, OrderStore } from '../models/order';
 import tokenChecker from '../middleware/tokenHandlerMiddleware';
 
 const routes = express.Router();
@@ -28,10 +28,10 @@ const orderIndexRoute = async (req: Request, res: Response): Promise<void> => {
 
 const createOrderRoute = async (req: Request, res: Response): Promise<void> => {
   try {
-    const result = await orderStore.createOrder(
-      req.body.userId,
-      req.body.status
-    );
+    const result = await orderStore.createOrder({
+      userid: req.body.userId,
+      status: req.body.status,
+    } as Order);
     res.status(200).send(result);
   } catch (err) {
     res.status(400).send(err);
