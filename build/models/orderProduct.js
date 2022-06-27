@@ -62,7 +62,7 @@ var OrderProductStore = /** @class */ (function () {
                         return [2 /*return*/, result.rows];
                     case 3:
                         err_1 = _a.sent();
-                        throw new Error("Could not get books. Error: ".concat(err_1));
+                        throw new Error("Could not get OrderProductStore. Error: ".concat(err_1));
                     case 4: return [2 /*return*/];
                 }
             });
@@ -83,10 +83,12 @@ var OrderProductStore = /** @class */ (function () {
                     case 2:
                         result = _a.sent();
                         conn.release();
+                        console.log(result);
                         return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_2 = _a.sent();
-                        throw new Error("Could not get books. Error: ".concat(err_2));
+                        console.log(err_2);
+                        throw new Error("Could not get OrderProductStore. Error: ".concat(err_2));
                     case 4: return [2 /*return*/];
                 }
             });

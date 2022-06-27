@@ -18,7 +18,7 @@ export class OrderProductStore {
 
       return result.rows as unknown as OrderProducts[];
     } catch (err) {
-      throw new Error(`Could not get books. Error: ${err}`);
+      throw new Error(`Could not get OrderProductStore. Error: ${err}`);
     }
   }
 
@@ -33,10 +33,11 @@ export class OrderProductStore {
       const result = await conn.query(sql, [orderId, productId]);
 
       conn.release();
-
+      console.log(result);
       return result.rows[0] as unknown as OrderProducts;
     } catch (err) {
-      throw new Error(`Could not get books. Error: ${err}`);
+      console.log(err);
+      throw new Error(`Could not get OrderProductStore. Error: ${err}`);
     }
   }
 }
