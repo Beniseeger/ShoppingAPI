@@ -131,8 +131,28 @@ var createUserRoute = function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
+var deleteUserRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, err_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, userStore.deleteUser(req.body.id)];
+            case 1:
+                user = _a.sent();
+                res.status(200).json(user);
+                return [3 /*break*/, 3];
+            case 2:
+                err_5 = _a.sent();
+                res.status(400).json(err_5);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 routes.get('/', tokenHandlerMiddleware_1["default"], userIndexRoute);
 routes.get('/:id', tokenHandlerMiddleware_1["default"], showUserRoute);
 routes.post('/authenticate', authenticateUserRoute);
 routes.post('/create', tokenHandlerMiddleware_1["default"], createUserRoute);
+routes.post('/delete', tokenHandlerMiddleware_1["default"], deleteUserRoute);
 exports["default"] = routes;

@@ -86,9 +86,20 @@ const createUserRoute = async (
   return null;
 };
 
+const deleteUserRoute = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = await userStore.deleteUser(req.body.id);
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
 routes.get('/', tokenChecker, userIndexRoute);
 routes.get('/:id', tokenChecker, showUserRoute);
 routes.post('/authenticate', authenticateUserRoute);
 routes.post('/create', tokenChecker, createUserRoute);
+routes.post('/delete', tokenChecker, deleteUserRoute);
 
 export default routes;

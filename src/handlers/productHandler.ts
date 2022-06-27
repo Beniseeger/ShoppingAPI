@@ -45,8 +45,22 @@ const createProductRoute = async (
   }
 };
 
+const deleteProductRoute = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const user = await productStore.deleteProduct(req.body.id);
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
 routes.get('/', productIndexRoute);
 routes.get('/:id', showProductRoute);
 routes.post('/create', tokenHandlerMiddleware, createProductRoute);
+routes.post('/delete', tokenHandlerMiddleware, deleteProductRoute);
 
 export default routes;

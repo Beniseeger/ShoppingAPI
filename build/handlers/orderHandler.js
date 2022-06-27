@@ -88,7 +88,10 @@ var createOrderRoute = function (req, res) { return __awaiter(void 0, void 0, vo
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.createOrder(req.body.userId, req.body.status)];
+                return [4 /*yield*/, orderStore.createOrder({
+                        userid: req.body.userId,
+                        status: req.body.status
+                    })];
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
@@ -101,7 +104,27 @@ var createOrderRoute = function (req, res) { return __awaiter(void 0, void 0, vo
         }
     });
 }); };
+var deleteOrderRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, orderStore.deleteOrder(req.body.id)];
+            case 1:
+                user = _a.sent();
+                res.status(200).json(user);
+                return [3 /*break*/, 3];
+            case 2:
+                err_4 = _a.sent();
+                res.status(400).json(err_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 routes.get('/:id', showOrderRoute);
 routes.get('/', orderIndexRoute);
 routes.post('/create', tokenHandlerMiddleware_1["default"], createOrderRoute);
+routes.post('/delete', tokenHandlerMiddleware_1["default"], deleteOrderRoute);
 exports["default"] = routes;

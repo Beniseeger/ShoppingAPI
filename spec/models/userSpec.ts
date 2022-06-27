@@ -50,4 +50,10 @@ describe('testing the user model', (): void => {
 
     expect((result as User).id).toBe(1);
   });
+
+  it('should delete user', async (): Promise<void> => {
+    const result = await userStore.deleteUser('1');
+
+    expect(result.id).toBe(1);
+  });
 });

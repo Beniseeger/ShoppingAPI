@@ -87,8 +87,31 @@ var OrderProductStore = /** @class */ (function () {
                         return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_2 = _a.sent();
-                        console.log(err_2);
                         throw new Error("Could not get OrderProductStore. Error: ".concat(err_2));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderProductStore.prototype.deleteProductFromOrder = function (orderId, productId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = "DELETE FROM order_products WHERE order_id=($1) AND product_id=($2) RETURNING *;";
+                        return [4 /*yield*/, conn.query(sql, [orderId, productId])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows[0]];
+                    case 3:
+                        err_3 = _a.sent();
+                        throw new Error("Could not delete product from order. Error: ".concat(err_3));
                     case 4: return [2 /*return*/];
                 }
             });

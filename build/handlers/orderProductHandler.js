@@ -43,14 +43,14 @@ var express_1 = __importDefault(require("express"));
 var orderProduct_1 = require("../models/orderProduct");
 var tokenHandlerMiddleware_1 = __importDefault(require("../middleware/tokenHandlerMiddleware"));
 var routes = express_1["default"].Router();
-var orderStore = new orderProduct_1.OrderProductStore();
+var orderProductStore = new orderProduct_1.OrderProductStore();
 var getOrderProductIndexRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.orderProductIndex()];
+                return [4 /*yield*/, orderProductStore.orderProductIndex()];
             case 1:
                 result = _a.sent();
                 res.status(200).send(result);
@@ -69,7 +69,7 @@ var addProductToOrderRoute = function (req, res) { return __awaiter(void 0, void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, orderStore.addProductToOrder(req.params.orderId, req.params.productId)];
+                return [4 /*yield*/, orderProductStore.addProductToOrder(req.params.orderId, req.params.productId)];
             case 1:
                 result = _a.sent();
                 res.status(200).json(result);
@@ -82,6 +82,26 @@ var addProductToOrderRoute = function (req, res) { return __awaiter(void 0, void
         }
     });
 }); };
+var deleteOrderProductRoute = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, orderProductStore.deleteProductFromOrder(req.params.orderid, req.params.productid)];
+            case 1:
+                user = _a.sent();
+                res.status(200).json(user);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.status(400).json(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 routes.get('/', getOrderProductIndexRoute);
 routes.post('/:orderId/product/:productId', tokenHandlerMiddleware_1["default"], addProductToOrderRoute);
+routes.post('/:orderId/product/:productId/delete', tokenHandlerMiddleware_1["default"], deleteOrderProductRoute);
 exports["default"] = routes;

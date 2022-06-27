@@ -21,10 +21,10 @@ This would have not been included in a real application cause the password could
 The database used in this project runs on port 5432 and has the following details:
 
 - HOST=127.0.0.1
-- DB_DEV=dev_shopping_db
-- DB_TEST=test_shopping_db
+- DB_NAME_DEV=dev_shopping_db
+- DB_NAME_TEST=test_shopping_db
 - DB_USER=shopping_db_user
-- DB_User_PASSWORD=password123
+- DB_USER_PASSWORD=password123
 
 To setup the db follow the follwing steps:
 
@@ -72,10 +72,10 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdG5hbWU
 
 The env file was removed due to security reasons. But for the sake of completion, these where the values used for this project (This would not be included in a real project):
 HOST=127.0.0.1
-DB_DEV=dev_shopping_db
-DB_TEST=test_shopping_db
+DB_NAME_DEV=dev_shopping_db
+DB_NAME_TEST=test_shopping_db
 DB_USER=shopping_db_user
-DB_User_PASSWORD=password123
+DB_USER_PASSWORD=password123
 SALT_ROUNDS=10
 PEPPER_STRING=thisismysecurepepperstring
 TOKEN_SECRET=Thisismytokensecret

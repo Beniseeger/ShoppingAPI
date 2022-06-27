@@ -2,6 +2,9 @@ import { OrderProductStore } from '../../src/models/orderProduct';
 import supertest from 'supertest';
 import app from '../../src/server';
 import jwt from 'jsonwebtoken';
+import { Order, OrderStore } from '../../src/models/order';
+import { Product, ProductStore } from '../../src/models/product';
+import { User, UserStore } from '../../src/models/user';
 
 const request = supertest(app);
 
@@ -16,7 +19,7 @@ describe('testing the order_product model', () => {
     //create User
     const user = {
       password: 'password123',
-      firstName: 'test',
+      firstname: 'test',
       lastname: 'tester',
       token: token,
     };
@@ -33,7 +36,7 @@ describe('testing the order_product model', () => {
       .send({ name: 'test_product', price: 100, token: token });
 
     //create order product relation
-    await request.post('/orderproduct/1/product/1').send(user);
+    await request.post('/orderproduct/1/product/1').send({ token: token });
   });
 
   it('should return all products in orders', async (): Promise<void> => {
@@ -47,5 +50,41 @@ describe('testing the order_product model', () => {
 
     //True, so no Error was thrown;
     expect(result.id).not.toBeNaN();
+  });
+
+  it('should delete product from order', async (): Promise<void> => {
+    const user = {
+      password: 'password123',
+      firstname: 'test',
+      lastname: 'tester',
+      token: token,
+    } as User;
+
+    const createdUser = await new UserStore().createUser(user);
+
+    const order = {
+      userid: createdUser.id,
+      status: 'active',
+    } as Order;
+    const createdOrder = await new OrderStore().createOrder(order);
+
+    const product = {
+      name: 'test',
+      price: 100,
+    } as Product;
+    const createdProduct = await new ProductStore().createProduct(product);
+
+    //create order product relation
+    await new OrderProductStore().addProductToOrder(
+      createdOrder.id as number,
+      createdProduct.id as number
+    );
+
+    const result = await orderProductStore.deleteProductFromOrder(
+      createdOrder.id as number,
+      createdProduct.id as number
+    );
+
+    expect(result.order_id as number).toBeTruthy();
   });
 });
