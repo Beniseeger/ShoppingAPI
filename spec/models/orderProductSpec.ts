@@ -48,4 +48,10 @@ describe('testing the order_product model', () => {
     //True, so no Error was thrown;
     expect(result.id).not.toBeNaN();
   });
+
+  it('should delete product from order', async (): Promise<void> => {
+    const result = await orderProductStore.deleteProductFromOrder('1', '1');
+
+    expect(result.order_id).toBe(1);
+  });
 });

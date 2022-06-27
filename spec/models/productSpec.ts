@@ -39,4 +39,10 @@ describe('testing the product model', (): void => {
 
     expect(result.length).toBeGreaterThanOrEqual(1);
   });
+
+  it('should delete product', async (): Promise<void> => {
+    const result = await productStore.deleteProduct('1');
+
+    expect(result.id).toBe(1);
+  });
 });

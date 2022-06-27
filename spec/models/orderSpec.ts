@@ -42,4 +42,10 @@ describe('testing the order model', (): void => {
 
     expect(result.length).toBeGreaterThanOrEqual(1);
   });
+
+  it('should delete order', async (): Promise<void> => {
+    const result = await orderStore.deleteOrder('1');
+
+    expect(result.id).toBe(1);
+  });
 });

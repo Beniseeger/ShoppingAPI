@@ -38,8 +38,19 @@ const createOrderRoute = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const deleteOrderRoute = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = await orderStore.deleteOrder(req.body.id);
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
 routes.get('/:id', showOrderRoute);
 routes.get('/', orderIndexRoute);
 routes.post('/create', tokenChecker, createOrderRoute);
+routes.post('/delete', tokenChecker, deleteOrderRoute);
 
 export default routes;

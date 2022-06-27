@@ -94,4 +94,19 @@ export class UserStore {
       throw new Error(`Could not get users. Error: ${err}`);
     }
   }
+
+  async deleteUser(userId: string): Promise<User> {
+    try {
+      const conn = await Client.connect();
+      const sql = `DELETE FROM users WHERE id=($1) RETURNING *;`;
+
+      const result = await conn.query(sql, [userId]);
+
+      conn.release();
+
+      return result.rows[0] as unknown as User;
+    } catch (err) {
+      throw new Error(`Could not delete users. Error: ${err}`);
+    }
+  }
 }
