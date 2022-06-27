@@ -71,11 +71,11 @@ token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdG5hbWU
 ### ENV File
 
 The env file was removed due to security reasons. But for the sake of completion, these where the values used for this project (This would not be included in a real project):
-HOST=127.0.0.1
-DB_NAME_DEV=dev_shopping_db
-DB_NAME_TEST=test_shopping_db
-DB_USER=shopping_db_user
-DB_USER_PASSWORD=password123
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB_DEV=dev_shopping_db
+POSTGRES_DB_TEST=test_shopping_db
+POSTGRES_USER=shopping_db_user
+POSTGRES_PASSWORD=password123
 SALT_ROUNDS=10
 PEPPER_STRING=thisismysecurepepperstring
 TOKEN_SECRET=Thisismytokensecret
