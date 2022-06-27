@@ -83,6 +83,7 @@ var OrderProductStore = /** @class */ (function () {
                     case 2:
                         result = _a.sent();
                         conn.release();
+                        console.log(result);
                         return [2 /*return*/, result.rows[0]];
                     case 3:
                         err_2 = _a.sent();

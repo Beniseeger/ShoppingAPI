@@ -57,15 +57,15 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ### Products
 
-Table products(id: integer, name: varchar, price: integer)
+Table products(id: integer [primary key], name: varchar, price: integer)
 
 ### Users
 
-Table users(id: integer, fristName: varchar, lastName: varchar, password: varchar (hashed))
+Table users(id: integer [primary key], fristName: varchar, lastName: varchar, password: varchar (hashed))
 
 ### Orders
 
-Table orders(id: integer, user_id: integer [foreign key to users table], quantity: integer, status: string)
+Table orders(id: integer [primary key], user_id: integer [foreign key to users table], quantity: integer, status: string)
 
 ### Order_Products (Created due to the many to many relation)
 
