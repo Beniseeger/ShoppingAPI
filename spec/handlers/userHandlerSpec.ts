@@ -35,12 +35,11 @@ describe('testing user api endpoints', (): void => {
     expect(result.body.id).toBe(1);
   });
 
-  it('should create an user when token provided', async (): Promise<void> => {
+  it('should create an user', async (): Promise<void> => {
     const user = {
       password: 'password123',
       firstname: 'test',
-      lastname: 'tester',
-      token: token,
+      lastname: 'tester'
     };
     const result = await request.post('/users/create').send(user);
 

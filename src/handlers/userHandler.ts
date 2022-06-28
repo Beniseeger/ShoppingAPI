@@ -99,7 +99,7 @@ const deleteUserRoute = async (req: Request, res: Response): Promise<void> => {
 routes.get('/', tokenChecker, userIndexRoute);
 routes.get('/:id', tokenChecker, showUserRoute);
 routes.post('/authenticate', authenticateUserRoute);
-routes.post('/create', tokenChecker, createUserRoute);
+routes.post('/create', createUserRoute);
 routes.post('/delete', tokenChecker, deleteUserRoute);
 
 export default routes;

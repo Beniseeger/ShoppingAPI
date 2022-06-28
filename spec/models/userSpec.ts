@@ -28,7 +28,7 @@ describe('testing the user model', (): void => {
     expect(result.id).toBe(1);
   });
 
-  it('should create a new product', async (): Promise<void> => {
+  it('should create a new user', async (): Promise<void> => {
     const user = {
       password: 'password123',
       firstname: 'Max',

@@ -21,7 +21,6 @@ describe('testing the product model', (): void => {
   it('should return the product from id', async (): Promise<void> => {
     const result = await productStore.getProductById('1');
 
-    //True, so no Error was thrown;
     expect(result.id).toBe(1);
   });
 

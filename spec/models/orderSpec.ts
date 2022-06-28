@@ -11,13 +11,10 @@ describe('testing the order model', (): void => {
   let token: string;
 
   beforeAll(async (): Promise<void> => {
-    token = jwt.sign({ user: {} }, process.env.TOKEN_SECRET as string);
-
     const user = {
       password: 'password123',
       firstName: 'test',
-      lastname: 'tester',
-      token: token,
+      lastname: 'tester'
     };
     await request.post('/users/create').send(user);
 
@@ -41,7 +38,7 @@ describe('testing the order model', (): void => {
     expect(result.status).toEqual('active');
   });
 
-  it('should show all users', async (): Promise<void> => {
+  it('should show all orders', async (): Promise<void> => {
     const result = await orderStore.orderIndexRoute();
 
     expect(result.length).toBeGreaterThanOrEqual(1);
