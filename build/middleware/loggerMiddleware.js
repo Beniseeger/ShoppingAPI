@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 exports.__esModule = true;
 /**
  * Returns the api point accessed by the user.
@@ -8,8 +8,14 @@ exports.__esModule = true;
  * @returns the api point accessed by the user and logs it in the console.
  */
 var loggerMiddleware = function (req, res, next) {
-    console.log("The endpoint: ".concat(req.url, " has been accessed with Req method: ").concat(req.method));
-    next();
-    return "The endpoint: ".concat(req.url, " has been accessed with Req method: ").concat(req.method);
+  console.log(
+    'The endpoint: '
+      .concat(req.url, ' has been accessed with Req method: ')
+      .concat(req.method)
+  );
+  next();
+  return 'The endpoint: '
+    .concat(req.url, ' has been accessed with Req method: ')
+    .concat(req.method);
 };
-exports["default"] = loggerMiddleware;
+exports['default'] = loggerMiddleware;

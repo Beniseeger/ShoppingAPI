@@ -1,7 +1,6 @@
 import { Order, OrderStore } from '../../src/models/order';
 import supertest from 'supertest';
 import app from '../../src/server';
-import jwt from 'jsonwebtoken';
 
 const request = supertest(app);
 
@@ -14,7 +13,7 @@ describe('testing the order model', (): void => {
     const user = {
       password: 'password123',
       firstName: 'test',
-      lastname: 'tester'
+      lastname: 'tester',
     };
     await request.post('/users/create').send(user);
 

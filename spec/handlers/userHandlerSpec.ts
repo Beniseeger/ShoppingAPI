@@ -39,7 +39,7 @@ describe('testing user api endpoints', (): void => {
     const user = {
       password: 'password123',
       firstname: 'test',
-      lastname: 'tester'
+      lastname: 'tester',
     };
     const result = await request.post('/users/create').send(user);
 
