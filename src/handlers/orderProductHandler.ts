@@ -50,7 +50,7 @@ const deleteOrderProductRoute = async (
   }
 };
 
-routes.get('/', getOrderProductIndexRoute);
+routes.get('/', tokenChecker, getOrderProductIndexRoute);
 routes.post(
   '/:orderId/product/:productId',
   tokenChecker,

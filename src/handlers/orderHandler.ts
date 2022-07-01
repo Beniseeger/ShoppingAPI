@@ -48,8 +48,8 @@ const deleteOrderRoute = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-routes.get('/:id', showOrderRoute);
-routes.get('/', orderIndexRoute);
+routes.get('/:id', tokenChecker, showOrderRoute);
+routes.get('/', tokenChecker, orderIndexRoute);
 routes.post('/create', tokenChecker, createOrderRoute);
 routes.post('/delete', tokenChecker, deleteOrderRoute);
 
