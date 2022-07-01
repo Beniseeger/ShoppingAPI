@@ -14,24 +14,30 @@ describe('testing user api endpoints', (): void => {
       password: 'password123',
       firstname: 'test',
       lastname: 'tester',
-      token: token,
     };
-    await request.post('/users/create').send(user);
+    await request
+      .post('/users/create')
+      .set({ Authorization: token })
+      .send(user);
   });
 
   it('should show all users in the db', async (): Promise<void> => {
-    const result = await request.get('/users').send({ token: token });
+    const result = await request
+      .get('/users')
+      .set({ Authorization: `Bearer ${token}` });
 
     expect(result.body.length).toBeGreaterThanOrEqual(1);
   });
 
   it('should give error when no jwt token is provided', async (): Promise<void> => {
     const result = await request.get('/users');
-    expect(result.body).toContain('Invalid token JsonWebTokenError:');
+    expect(result.body).toContain('No Token was provided');
   });
 
   it('should show a specific user with the id 1', async (): Promise<void> => {
-    const result = await request.get('/users/1').send({ token: token });
+    const result = await request
+      .get('/users/1')
+      .set({ Authorization: `Bearer ${token}` });
     expect(result.body.id).toBe(1);
   });
 

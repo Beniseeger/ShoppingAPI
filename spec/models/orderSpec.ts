@@ -19,7 +19,8 @@ describe('testing the order model', (): void => {
 
     await request
       .post('/orders/create')
-      .send({ userid: '1', status: 'active', token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ userid: '1', status: 'active' });
   });
 
   it('should return the current order from user ID', async (): Promise<void> => {

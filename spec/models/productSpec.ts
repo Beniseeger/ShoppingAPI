@@ -15,7 +15,8 @@ describe('testing the product model', (): void => {
 
     await request
       .post('/products/create')
-      .send({ name: 'test_product', price: 100, token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ name: 'test_product', price: 100 });
   });
 
   it('should return the product from id', async (): Promise<void> => {

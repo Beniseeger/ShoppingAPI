@@ -14,13 +14,16 @@ describe('testing order api endpoints', (): void => {
       password: 'password123',
       firstName: 'test',
       lastname: 'tester',
-      token: token,
     };
-    await request.post('/users/create').send(user);
+    await request
+      .post('/users/create')
+      .set({ Authorization: `Bearer ${token}` })
+      .send(user);
 
     await request
       .post('/orders/create')
-      .send({ userId: '1', status: 'active', token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ userId: '1', status: 'active' });
   });
 
   it('should show all orders for the index route', async (): Promise<void> => {
@@ -38,7 +41,8 @@ describe('testing order api endpoints', (): void => {
   it('should create a new order', async (): Promise<void> => {
     const result = await request
       .post('/orders/create')
-      .send({ user_id: '1', status: 'active', token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ user_id: '1', status: 'active' });
 
     expect(result.status).toBe(200);
   });

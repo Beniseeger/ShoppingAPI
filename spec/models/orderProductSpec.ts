@@ -21,22 +21,28 @@ describe('testing the order_product model', () => {
       password: 'password123',
       firstname: 'test',
       lastname: 'tester',
-      token: token,
     };
-    await request.post('/users/create').send(user);
+    await request
+      .post('/users/create')
+      .set({ Authorization: `Bearer ${token}` })
+      .send(user);
 
     //create order
     await request
       .post('/orders/create')
-      .send({ userid: 1, status: 'active', token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ userid: 1, status: 'active' });
 
     //create product
     await request
       .post('/products/create')
-      .send({ name: 'test_product', price: 100, token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ name: 'test_product', price: 100 });
 
     //create order product relation
-    await request.post('/orderproduct/1/product/1').send({ token: token });
+    await request
+      .post('/orderproduct/1/product/1')
+      .set({ Authorization: `Bearer ${token}` });
   });
 
   it('should return all products in orders', async (): Promise<void> => {

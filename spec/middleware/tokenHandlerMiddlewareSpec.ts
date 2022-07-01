@@ -5,7 +5,8 @@ import { mockRequest, mockResponse } from 'mock-req-res';
 describe('testing token handler endpoint', (): void => {
   const token = jwt.sign({ user: {} }, process.env.TOKEN_SECRET as string);
   it('should accept the request when a valid token is provided', (): void => {
-    const req = mockRequest({ body: { token: token } });
+    const req = mockRequest({ headers: { authorization: `Bearer ${token}` } });
+    console.log(req);
     const res = mockResponse();
     const result = tokenHandler(req, res, () => {
       console.log('Going to the next middleware');
@@ -25,7 +26,9 @@ describe('testing token handler endpoint', (): void => {
   });
 
   it('should reject the request when no valid token is provided', (): void => {
-    const req = mockRequest({ body: { token: 'thisIsAFalseToken' } });
+    const req = mockRequest({
+      Headers: { Authorization: 'thisIsAFalseToken' },
+    });
     const res = mockResponse();
     const result = tokenHandler(req, res, () => {
       console.log('Going to the next middleware');

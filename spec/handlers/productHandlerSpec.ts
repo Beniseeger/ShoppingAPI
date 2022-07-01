@@ -12,7 +12,8 @@ describe('testing products api endpoints', (): void => {
 
     await request
       .post('/products/create')
-      .send({ name: 'test_product', price: 100, token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ name: 'test_product', price: 100 });
   });
 
   it('should show all products for the index route', async (): Promise<void> => {
@@ -29,7 +30,8 @@ describe('testing products api endpoints', (): void => {
   it('should create a new product', async (): Promise<void> => {
     const result = await request
       .post('/products/create')
-      .send({ name: 'test_product', price: 100, token: token });
+      .set({ Authorization: `Bearer ${token}` })
+      .send({ name: 'test_product', price: 100 });
 
     expect(result.status).toBe(200);
   });

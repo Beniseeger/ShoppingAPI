@@ -17,9 +17,11 @@ describe('testing the user model', (): void => {
       password: 'password123',
       firstName: 'test',
       lastname: 'tester',
-      token: token,
     };
-    await request.post('/users/create').send(user);
+    await request
+      .post('/users/create')
+      .set({ Authorization: `Bearer ${token}` })
+      .send(user);
   });
 
   it('should return the user from id', async (): Promise<void> => {

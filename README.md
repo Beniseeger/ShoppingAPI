@@ -1,5 +1,11 @@
 # Storefront Backend Project
 
+## Reentering
+
+I have updated the migration file, so each table has an own file and the tables can be created and shut down separately.
+Additionally I have corrected the jwt tokens, so each token is send in the header and not the body.
+With this I have corrected the tests.
+
 ## Setting up the application
 
 ### Prerequisites

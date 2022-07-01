@@ -6,12 +6,17 @@ const tokenHandler = (
   res: Response,
   next: NextFunction
 ): boolean => {
+  const authorizationHeader = _req.headers.authorization;
   try {
-    const token = _req.body.token;
-
+    const token = (authorizationHeader as string).split(' ')[1];
     jwt.verify(token, process.env.TOKEN_SECRET as string);
   } catch (err) {
-    res.status(401).json(`Invalid token ${err}`);
+    if (authorizationHeader == undefined) {
+      res.status(401).json(`No Token was provided ${err}`);
+    } else {
+      res.status(401).json(`Invalid token ${err}`);
+    }
+
     return false;
   }
 

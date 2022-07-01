@@ -1,2 +1,2 @@
 /* Replace with your SQL commands */
-DROP TABLE if exists users cascade;
+DROP TABLE if exists orders cascade;
