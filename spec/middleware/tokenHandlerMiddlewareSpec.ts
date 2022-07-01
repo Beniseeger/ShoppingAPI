@@ -6,7 +6,7 @@ describe('testing token handler endpoint', (): void => {
   const token = jwt.sign({ user: {} }, process.env.TOKEN_SECRET as string);
   it('should accept the request when a valid token is provided', (): void => {
     const req = mockRequest({ headers: { authorization: `Bearer ${token}` } });
-    console.log(req);
+
     const res = mockResponse();
     const result = tokenHandler(req, res, () => {
       console.log('Going to the next middleware');

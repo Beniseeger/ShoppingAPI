@@ -33,7 +33,9 @@ describe('testing order api endpoints', (): void => {
   });
 
   it('should return a specific order by user_id', async (): Promise<void> => {
-    const result = await request.get('/orders/1');
+    const result = await request
+      .get('/orders/1')
+      .set({ Authorization: `Bearer ${token}` });
 
     expect(result.status).toBe(200);
   });
